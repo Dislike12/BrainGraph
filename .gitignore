@@ -16,6 +16,7 @@ smoke-check/braingraph-out/
 
 .braingraph-test-tmp/
 .braingraph-test-work/
+.pypi-tmp/
 .qa/
 .codex/
 .claude/

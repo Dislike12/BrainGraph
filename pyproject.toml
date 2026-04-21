@@ -6,10 +6,25 @@ build-backend = "setuptools.build_meta"
 name = "braingraph"
 version = "0.1.0"
 description = "Local-first AI codebase memory and graph intelligence system."
-readme = "README.md"
+readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.12"
-license = { text = "MIT" }
-authors = [{ name = "BrainGraph" }]
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Mohd.Kaif" }]
+maintainers = [{ name = "ClarusCodix" }]
+keywords = ["ai", "cli", "codebase", "developer-tools", "graph", "llm", "memory", "rag"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Utilities"
+]
 dependencies = [
   "sqlalchemy>=2.0.30",
   "networkx>=3.3",
@@ -21,15 +36,22 @@ dependencies = [
   "tree-sitter-language-pack>=0.2.0"
 ]
 
+[project.urls]
+Homepage = "https://github.com/Dislike12/BrainGraph"
+Repository = "https://github.com/Dislike12/BrainGraph"
+Issues = "https://github.com/Dislike12/BrainGraph/issues"
+
 [project.optional-dependencies]
 vector = [
   "chromadb>=0.5.3"
 ]
 dev = [
+  "build>=1.2.2",
   "pytest>=8.2.0",
   "pytest-cov>=5.0.0",
   "ruff>=0.5.0",
-  "mypy>=1.10.0"
+  "mypy>=1.10.0",
+  "twine>=5.1.1"
 ]
 
 [project.scripts]
