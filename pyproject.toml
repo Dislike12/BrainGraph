@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "braingraph"
+version = "0.1.0"
+description = "Local-first AI codebase memory and graph intelligence system."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "BrainGraph" }]
+dependencies = [
+  "sqlalchemy>=2.0.30",
+  "networkx>=3.3",
+  "typer>=0.12.3",
+  "rich>=13.7.0",
+  "watchdog>=4.0.1",
+  "numpy>=1.26.4",
+  "tree-sitter>=0.22.3",
+  "tree-sitter-language-pack>=0.2.0"
+]
+
+[project.optional-dependencies]
+vector = [
+  "chromadb>=0.5.3"
+]
+dev = [
+  "pytest>=8.2.0",
+  "pytest-cov>=5.0.0",
+  "ruff>=0.5.0",
+  "mypy>=1.10.0"
+]
+
+[project.scripts]
+braingraph = "braingraph.cli.main:run"
+
+[tool.setuptools.packages.find]
+include = ["braingraph*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = ["-p", "no:cacheprovider"]
