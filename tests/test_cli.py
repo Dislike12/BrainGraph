@@ -1,14 +1,15 @@
 from __future__ import annotations
 
 import sys
+import tomllib
 from pathlib import Path
 
 from typer.testing import CliRunner
 
+from braingraph import __version__
 from braingraph.cli import main as cli_main
 from braingraph.config import BrainGraphConfig
 from braingraph.parser.scanner import ProjectScanner
-
 
 runner = CliRunner()
 
@@ -16,7 +17,14 @@ runner = CliRunner()
 def test_cli_version_flag_outputs_version() -> None:
     result = runner.invoke(cli_main.app, ["--version"])
     assert result.exit_code == 0
-    assert "0.1.0" in result.stdout
+    assert __version__ in result.stdout
+
+
+def test_project_metadata_uses_package_version_as_source_of_truth() -> None:
+    project_file = Path(__file__).resolve().parents[1] / "pyproject.toml"
+    metadata = tomllib.loads(project_file.read_text(encoding="utf-8"))
+    assert "version" in metadata["project"]["dynamic"]
+    assert metadata["tool"]["setuptools"]["dynamic"]["version"]["attr"] == "braingraph.__version__"
 
 
 def test_cli_watch_supports_seconds_option(tmp_path: Path, monkeypatch) -> None:
