@@ -6,8 +6,8 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from braingraph.database.models import CodeFile, Diagnostic, Relation, Symbol
-from braingraph.parser.types import ParsedFile
 from braingraph.graph_engine.builder import GraphEngine
+from braingraph.parser.types import ParsedFile
 
 
 def run_diagnostics(session: Session, project_id: int, parsed_files: list[ParsedFile] | None = None) -> list[Diagnostic]:

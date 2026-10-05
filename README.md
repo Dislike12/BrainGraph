@@ -355,26 +355,27 @@ With BrainGraph:
 - prompts stay smaller
 - AI gets better structure before reasoning
 
-## 14. Notes for Contributors
+## 14. Contributor Checks
 
-This section is only for contributors, not end users.
-
-### Run tests
+Use Python 3.12 or newer for local development. Install the development tools and run the same checks used by GitHub Actions (`.github/workflows/ci.yml`):
 
 ```bash
+python -m pip install -e ".[dev]"
 python -m pytest -q
+ruff check .
+braingraph --version
 ```
 
-### Local editable install
+The test command runs the complete `tests/` suite. `ruff check .` runs the repository's configured Ruff rules. The installed-CLI command is a smoke check for the package entry point; it is not a test-suite result.
+
+### Editable install without development tools
 
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
 python -m pip install -e .
-python -m pip install -e ".[dev]"
 ```
 
 ## 15. Credits
 
 Built and prepared by **Mohd.Kaif** with team **ClarusCodix**.
-

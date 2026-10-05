@@ -3,8 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 
 from sqlalchemy import delete, func, select
-from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
 
 from braingraph.database.models import CodeFile, Project, Query, Relation, Summary, Symbol
 

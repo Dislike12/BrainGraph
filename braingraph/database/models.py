@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
@@ -11,7 +11,7 @@ class Base(DeclarativeBase):
 
 
 def utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class Project(Base):
@@ -23,7 +23,7 @@ class Project(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
 
-    files: Mapped[list["CodeFile"]] = relationship(back_populates="project", cascade="all, delete-orphan")
+    files: Mapped[list[CodeFile]] = relationship(back_populates="project", cascade="all, delete-orphan")
 
 
 class CodeFile(Base):
@@ -40,8 +40,8 @@ class CodeFile(Base):
     scanned_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
     project: Mapped[Project] = relationship(back_populates="files")
-    symbols: Mapped[list["Symbol"]] = relationship(back_populates="file", cascade="all, delete-orphan")
-    summaries: Mapped[list["Summary"]] = relationship(back_populates="file", cascade="all, delete-orphan")
+    symbols: Mapped[list[Symbol]] = relationship(back_populates="file", cascade="all, delete-orphan")
+    summaries: Mapped[list[Summary]] = relationship(back_populates="file", cascade="all, delete-orphan")
 
 
 class Symbol(Base):

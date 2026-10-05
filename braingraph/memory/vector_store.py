@@ -27,7 +27,7 @@ class VectorMemory:
 
             client = chromadb.PersistentClient(path=str(self.chroma_dir))
             self._collection = client.get_or_create_collection("braingraph_chunks")
-        except Exception:
+        except Exception:  # noqa: BLE001 - Chroma is optional; SQLite remains the supported fallback.
             self._collection = None
         self._init_sqlite()
 
@@ -84,8 +84,8 @@ class VectorMemory:
                     }
                     for i in range(len(ids))
                 ]
-            except Exception:
-                pass
+            except Exception:  # noqa: BLE001 - a Chroma query failure falls back to SQLite search.
+                return self._lexical_search(query, limit)
         return self._lexical_search(query, limit)
 
     def _lexical_search(self, query: str, limit: int) -> list[dict[str, str | float]]:

@@ -5,7 +5,6 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-
 IGNORE_DIRS = {
     ".git",
     ".hg",
@@ -58,7 +57,7 @@ class BrainGraphConfig:
     ignore_dirs: set[str] = field(default_factory=lambda: set(IGNORE_DIRS))
 
     @classmethod
-    def for_project(cls, project_path: str | Path) -> "BrainGraphConfig":
+    def for_project(cls, project_path: str | Path) -> BrainGraphConfig:
         root = Path(project_path).expanduser().resolve()
         out = root / "braingraph-out"
         return cls(
@@ -75,7 +74,7 @@ class BrainGraphConfig:
         )
 
     @classmethod
-    def load(cls, project_path: str | Path) -> "BrainGraphConfig":
+    def load(cls, project_path: str | Path) -> BrainGraphConfig:
         config = cls.for_project(project_path)
         path = config.output_dir / "config.json"
         if not path.exists():

@@ -4,7 +4,6 @@ from pathlib import Path
 
 from braingraph.config import BrainGraphConfig
 
-
 INTEGRATIONS: dict[str, dict[str, str | tuple[str, ...]]] = {
     "codex": {
         "label": "Codex",

@@ -271,7 +271,7 @@ class BrainGraphService:
                 ]
             )
         for suffix in ("", ".py", ".ts", ".tsx", ".js", ".jsx", "/index.py", "/index.ts", "/index.tsx", "/index.js", "/index.jsx"):
-            for candidate in list(candidates):
+            for candidate in candidates:
                 key = f"{candidate}{suffix}".lower()
                 if key in lookup:
                     return lookup[key]
