@@ -368,6 +368,8 @@ braingraph --version
 
 The test command runs the complete `tests/` suite. `ruff check .` runs the repository's configured Ruff rules. The installed-CLI command is a smoke check for the package entry point; it is not a test-suite result.
 
+The [`examples/quickstart`](examples/quickstart/README.md) fixture demonstrates a two-file project, and the test suite verifies its documented CLI flow and generated artifacts.
+
 ### Editable install without development tools
 
 ```bash
