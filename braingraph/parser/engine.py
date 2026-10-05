@@ -10,7 +10,7 @@ from braingraph.parser.utils import estimate_tokens, read_text_lossy, sha256_tex
 
 try:
     from tree_sitter_language_pack import get_parser
-except Exception:  # pragma: no cover - optional parser pack can vary by platform
+except ImportError:  # pragma: no cover - parser pack is optional
     get_parser = None  # type: ignore[assignment]
 
 
@@ -52,7 +52,7 @@ class CodeParser:
         try:
             parser = get_parser(lang_name)
             parser.parse(content.encode("utf-8", errors="ignore"))
-        except Exception:
+        except Exception:  # noqa: BLE001 - parser failures must not block BrainGraph's own scan.
             return
 
     def _parse_python(self, parsed: ParsedFile) -> None:
@@ -187,7 +187,7 @@ class CodeParser:
             )
 
     def _parse_html(self, parsed: ParsedFile) -> None:
-        title = re.search(r"<title>(.*?)</title>", parsed.content, flags=re.I | re.S)
+        title = re.search(r"<title>(.*?)</title>", parsed.content, flags=re.IGNORECASE | re.DOTALL)
         if title:
             parsed.symbols.append(ParsedSymbol(title.group(1).strip(), "component", 1, 1))
         for src in re.findall(r"(?:src|href)=['\"]([^'\"]+)['\"]", parsed.content):
